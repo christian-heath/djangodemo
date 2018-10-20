@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login & Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <style>
+        .big_form{
+                padding: 15px;
+                margin-top: 50px;
+                border-style: solid;
+                border-width: 5px;
+                border-radius: 8px;
+                width: 450px;
+            }
+            .header{
+                text-align: center;
+            }
+            .error{
+                color: red;
+            }
+            #button{
+                margin-top: 10px;
+            }
+            #registration{
+                display: inline-block;
+                float: left;
+            }
+            #login{
+                display: inline-block;
+                float: right;
+            }
+            .register{
+
+            }
+        </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-primary">
+        <h1 class='header'>Welcome to the Wall!</h1>
+    </nav>
+    <div class="container">
+        <form id="registration" class='big_form' action='/register' method='post'>
+            {% csrf_token %}
+            <div class="form-group">
+                <h1>Registration Form</h1>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{error.register}}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <label for="exampleFormControlInput1">First Name:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name='first_name' value="{{ request.session.first_name }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Last Name:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name='last_name' value="{{ request.session.last_name }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Email:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name='email' value="{{ request.session.email }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Password:</label>
+                <input type="password" class="form-control" id="exampleFormControlInput1" name='password'>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Confirm Password:</label>
+                <input type="password" class="form-control" id="exampleFormControlInput1" name='confirm_password'>
+            </div>
+            <button type="submit" value='submit' id="button" class="btn btn-primary">Submit</button>
+        </form>
+        <form id="login" class='big_form' action='/login' method='post'>
+            {% csrf_token %}
+            <div class="form-group">
+                <h1>Login</h1>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{error.login}}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <label for="exampleFormControlInput1">Email:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name='email' value="{{ request.session.email }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Password:</label>
+                <input type="password" class="form-control" id="exampleFormControlInput1" name='password'>
+            </div>
+            <button type="submit" value='submit' id="button" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
